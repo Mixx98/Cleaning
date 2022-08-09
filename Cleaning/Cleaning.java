@@ -48,7 +48,7 @@ class Clean{
 	}
 	
 }
-public class Cleaner {
+public class Cleaning {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
