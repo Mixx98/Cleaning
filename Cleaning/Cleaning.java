@@ -1,166 +1,169 @@
-/* ÀÌµ¿ À§Ä¡º° %
+/* ï¿½Ìµï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ %
 
  			5
         10  a  10
      2  7       7  2
-        1   ¡è   1
+        1   ï¿½ï¿½   1
 
 */
 
 import java.util.Scanner;
 class Clean{
-	static int n,i,j; //nÀÔ·Â, ÁÂÇ¥ i,j
-	static int a = 0; //aÀÇ ¸ÕÁö°ª
-	static int sum=0; //¶³¾îÁø ¸ÕÁö ÃÑÇÕ
-	static int[] value = new int[5]; //%°è»ê°ª
-	static int[][] table; //Ç¥
-	static Scanner sc = new Scanner(System.in);
-	
-	Clean() { //ÃÊ±âÈ­
-		Clean.n=sc.nextInt(); //nÀ» ÀÔ·Â
-		table = new int[n][n]; //n*nÇà·Ä
-		i = ((n/2)+1); //ÁÂÇ¥(Çà)¸¦ °¡¿îµ¥·Î ÁöÁ¤
-		j = ((n/2)+1); //ÁÂÇ¥(¿­)¸¦ °¡¿îµ¥·Î ÁöÁ¤
-	}
-	
-	static void setTable() { //Çà·Ä °ª ÀÔ·Â
-		for(int i=0;i<n;i++) {
-			for(int j=0;j<n;j++) {
-				table[i][j] = sc.nextInt();
-			}
-		}
-	}
-	static void cal() {
-		value[0] = (int)((table[i][j]/100.0)*10);
-		value[1] = (int)((table[i][j]/100.0)*7);
-		value[2] = (int)((table[i][j]/100.0)*5);
-		value[3] = (int)((table[i][j]/100.0)*2);
-		value[4] = (int)((table[i][j]/100.0)*1);
-	}
-	
-	static void up() { //À§·Î ÀÌµ¿ÇÒ¶§
-		i--; //ÁÂÇ¥ À§·Î ÀÌµ¿
-		cal();
-		try {table[i-1][j+1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
-		try {table[i-1][j-1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
-		try {table[i][j+1]+=value[1];a+=value[1]; //7%
-			try{table[i][j+2]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
-		}catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
-		try {table[i][j-1]+=value[1];a+=value[1]; //7%
-			try{table[i][j-2]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
-		}catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
-		try {table[i+1][j+1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
-		try {table[i+1][j-1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
-		a=table[i][j]-a; //a°è»ê
-		try {table[i-1][j]=a; //aÀÔ·Â
-			try {table[i-2][j]+=value[2];table[i-1][j]-=value[2];}
-			catch(ArrayIndexOutOfBoundsException e){sum+=value[2];table[i-1][j]-=value[2];} //5%
-		}catch(ArrayIndexOutOfBoundsException e){sum+=a;}
-		a=0; //a ÃÊ±âÈ­
-		table[i][j]=0;	//ÁÂÇ¥°ª ÃÊ±âÈ­
-	}
+    static int n,i,j; //nï¿½Ô·ï¿½, ï¿½ï¿½Ç¥ i,j
+    static int a = 0; //aï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    static int sum=0; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    static int[] value = new int[5]; //%ï¿½ï¿½ê°ª
+    static int[][] table; //Ç¥
+    static Scanner sc = new Scanner(System.in); //BuffredReader
 
-	static void down() { //¾Æ·¡·Î ÀÌµ¿ÇÒ¶§
-		i--; //ÁÂÇ¥ ¾Æ·¡·Î ÀÌµ¿
-		cal();
-		try {table[i+1][j+1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
-		try {table[i+1][j-1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
-		try {table[i][j+1]+=value[1];a+=value[1]; //7%
-			try{table[i][j+2]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
-		}catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
-		try {table[i][j-1]+=value[1];a+=value[1]; //7%
-			try{table[i][j-2]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
-		}catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
-		try {table[i-1][j+1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
-		try {table[i-1][j-1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
-		a=table[i][j]-a; //a°è»ê
-		try {table[i+1][j]=a; //aÀÔ·Â
-			try {table[i+2][j]+=value[2];table[i+1][j]-=value[2];}
-			catch(ArrayIndexOutOfBoundsException e){sum+=value[2];table[i+1][j]-=value[2];} //5%
-		}catch(ArrayIndexOutOfBoundsException e){sum+=a;}
-		a=0; //a ÃÊ±âÈ­
-		table[i][j]=0;	//ÁÂÇ¥°ª ÃÊ±âÈ­
-	}
+    Clean() { //ï¿½Ê±ï¿½È­
+        this.n=sc.nextInt(); //nï¿½ï¿½ ï¿½Ô·ï¿½
+        table = new int[n][n]; //n*nï¿½ï¿½ï¿½ //n+1 ë¡œ ìˆ˜ì •
+        i = ((n/2)); //ï¿½ï¿½Ç¥(ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½îµ¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        j = ((n/2)); //ï¿½ï¿½Ç¥(ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½îµ¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    }
 
-	static void left() { //¿ÞÂÊÀ¸·Î ÀÌµ¿ÇÒ¶§
-		j--; //ÁÂÇ¥ ¿ÞÂÊÀ¸·Î ÀÌµ¿
-		cal();
-		try {table[i-1][j-1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
-		try {table[i+1][j-1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
-		try {table[i+1][j]+=value[1];a+=value[1]; //7%
-			try{table[i+2][j]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
-		}catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
-		try {table[i-1][j]+=value[1];a+=value[1]; //7%
-			try{table[i-2][j]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
-		}catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
-		try {table[i-1][j+1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
-		try {table[i+1][j+1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
-		a=table[i][j]-a; //a°è»ê
-		try {table[i][j-1]=a; //aÀÔ·Â
-			try {table[i][j-2]+=value[2];table[i][j-1]-=value[2];}
-			catch(ArrayIndexOutOfBoundsException e){sum+=value[2];table[i][j-1]-=value[2];} //5%
-		}catch(ArrayIndexOutOfBoundsException e){sum+=a;}
-		a=0; //a ÃÊ±âÈ­
-		table[i][j]=0;	//ÁÂÇ¥°ª ÃÊ±âÈ­
-	}
+    static void setTable() { //ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ô·ï¿½
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<n;j++) {
+                table[i][j] = sc.nextInt();
+            }
+        }
+    }
+    static void cal() {
+        value[0] = (int)((table[i][j]/100.0)*10);
+        value[1] = (int)((table[i][j]/100.0)*7);
+        value[2] = (int)((table[i][j]/100.0)*5);
+        value[3] = (int)((table[i][j]/100.0)*2);
+        value[4] = (int)((table[i][j]/100.0)*1);
+    }
 
-	static void right() { //¿À¸¥ÂÊÀ¸·Î ÀÌµ¿ÇÒ¶§
-		j++; //ÁÂÇ¥ ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿
-		cal();
-		try {table[i-1][j+1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
-		try {table[i+1][j+1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
-		try {table[i+1][j]+=value[1];a+=value[1]; //7%
-			try{table[i+2][j]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
-		}catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
-		try {table[i-1][j]+=value[1];a+=value[1]; //7%
-			try{table[i-2][j]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
-		}catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
-		try {table[i-1][j-1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
-		try {table[i+1][j-1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
-		a=table[i][j]-a; //a°è»ê
-		try {table[i][j+1]=a; //aÀÔ·Â
-			try {table[i][j+2]+=value[2];table[i][j+1]-=value[2];}
-			catch(ArrayIndexOutOfBoundsException e){sum+=value[2];table[i][j+1]-=value[2];} //5%
-		}catch(ArrayIndexOutOfBoundsException e){sum+=a;}
-		a=0; //a ÃÊ±âÈ­
-		table[i][j]=0;	//ÁÂÇ¥°ª ÃÊ±âÈ­
-	}
+    static void up() { //ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ò¶ï¿½
+        i--; //ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+        cal();
+        try {table[i-1][j+1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
+        try {table[i-1][j-1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
+        try {table[i][j+1]+=value[1];a+=value[1]; //7%
+            try{table[i][j+2]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
+        }catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
+        try {table[i][j-1]+=value[1];a+=value[1]; //7%
+            try{table[i][j-2]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
+        }catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
+        try {table[i+1][j+1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
+        try {table[i+1][j-1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
+        a=table[i][j]-a; //aï¿½ï¿½ï¿½
+        try {table[i-1][j]=a; //aï¿½Ô·ï¿½
+            try {table[i-2][j]+=value[2];table[i-1][j]-=value[2];}
+            catch(ArrayIndexOutOfBoundsException e){sum+=value[2];table[i-1][j]-=value[2];} //5%
+        }catch(ArrayIndexOutOfBoundsException e){sum+=a;}
+        a=0; //a ï¿½Ê±ï¿½È­
+        table[i][j]=0;	//ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ê±ï¿½È­
+    }
 
-	static void choice(int i){
-		switch (i) {
-			case 0 -> left();
-			case 1 -> down();
-			case 2 -> right();
-			case 3 -> up();
-		}
-	}
+    static void down() { //ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ò¶ï¿½
+        i++; //ï¿½ï¿½Ç¥ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+        cal();
+        try {table[i+1][j+1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
+        try {table[i+1][j-1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
+        try {table[i][j+1]+=value[1];a+=value[1]; //7%
+            try{table[i][j+2]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
+        }catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
+        try {table[i][j-1]+=value[1];a+=value[1]; //7%
+            try{table[i][j-2]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
+        }catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
+        try {table[i-1][j+1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
+        try {table[i-1][j-1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
+        a=table[i][j]-a; //aï¿½ï¿½ï¿½
+        try {table[i+1][j]=a; //aï¿½Ô·ï¿½
+            try {table[i+2][j]+=value[2];table[i+1][j]-=value[2];}
+            catch(ArrayIndexOutOfBoundsException e){sum+=value[2];table[i+1][j]-=value[2];} //5%
+        }catch(ArrayIndexOutOfBoundsException e){sum+=a;}
+        a=0; //a ï¿½Ê±ï¿½È­
+        table[i][j]=0;	//ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ê±ï¿½È­
+    }
 
-	static void start(){
-		int count = 0;
-		int len = 1;
-		boolean bl = true;
+    static void left() { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ò¶ï¿½
+        j--; //ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+        cal();
+        try {table[i-1][j-1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
+        try {table[i+1][j-1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
+        try {table[i+1][j]+=value[1];a+=value[1]; //7%
+            try{table[i+2][j]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
+        }catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
+        try {table[i-1][j]+=value[1];a+=value[1]; //7%
+            try{table[i-2][j]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
+        }catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
+        try {table[i-1][j+1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
+        try {table[i+1][j+1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
+        a=table[i][j]-a; //aï¿½ï¿½ï¿½
+        try {table[i][j-1]=a; //aï¿½Ô·ï¿½
+            try {table[i][j-2]+=value[2];table[i][j-1]-=value[2];}
+            catch(ArrayIndexOutOfBoundsException e){sum+=value[2];table[i][j-1]-=value[2];} //5%
+        }catch(ArrayIndexOutOfBoundsException e){sum+=a;}
+        a=0; //a ï¿½Ê±ï¿½È­
+        table[i][j]=0;	//ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ê±ï¿½È­
+    }
 
-		while(bl) {
-			for (int a = 0; a < 2; a++) {
-				for (int b = 0; b < len; b++) {
-					choice(count / 4);
-					if(i==0&&j==0){
-						bl=false;
-					}
-				}
-				count++;
-			}
-			len++;
-		}
-	}
+    static void right() { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ò¶ï¿½
+        j++; //ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+        cal();
+        try {table[i-1][j+1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
+        try {table[i+1][j+1]+=value[0];a+=value[0];}catch(ArrayIndexOutOfBoundsException e){sum+=value[0];a+=value[0];} //10%
+        try {table[i+1][j]+=value[1];a+=value[1]; //7%
+            try{table[i+2][j]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
+        }catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
+        try {table[i-1][j]+=value[1];a+=value[1]; //7%
+            try{table[i-2][j]+=value[3];a+=value[3];}catch(ArrayIndexOutOfBoundsException e){sum+=value[3];a+=value[3];} //2%
+        }catch(ArrayIndexOutOfBoundsException e){sum+=value[1];a+=value[1];}
+        try {table[i-1][j-1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
+        try {table[i+1][j-1]+=value[4];a+=value[4];}catch(ArrayIndexOutOfBoundsException e){sum+=value[4];a+=value[4];} //1%
+        a=table[i][j]-a; //aï¿½ï¿½ï¿½
+        try {table[i][j+1]=a; //aï¿½Ô·ï¿½
+            try {table[i][j+2]+=value[2];table[i][j+1]-=value[2];}
+            catch(ArrayIndexOutOfBoundsException e){sum+=value[2];table[i][j+1]-=value[2];} //5%
+        }catch(ArrayIndexOutOfBoundsException e){sum+=a;}
+        a=0; //a ï¿½Ê±ï¿½È­
+        table[i][j]=0;	//ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ê±ï¿½È­
+    }
+
+    static void choice(int i){
+        switch (i) {
+            case 0 -> left();
+            case 1 -> down();
+            case 2 -> right();
+            case 3 -> up();
+        }
+    }
+
+    static void start(){
+        int count = 0;
+        int len = 1;
+        boolean bl = true;
+
+        while(bl) {
+            for (int a = 0; a < 2; a++) {
+                for (int b = 0; b < len; b++) {
+                    choice(count % 4);
+                    System.out.println(i+","+j);
+                    if(i==0&&j==0){
+                        bl=false;
+                    }
+                }
+                count++;
+            }
+            len++;
+        }
+        System.out.println(sum);
+    }
 }
 public class Cleaning {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Clean cl = new Clean();
-		cl.setTable();
-		cl.start();
-	}
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        Clean cl = new Clean();
+        cl.setTable();
+        try{cl.start();}
+            catch(ArrayIndexOutOfBoundsException e){System.out.println(cl.sum);}
+    }
 
 }
